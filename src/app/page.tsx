@@ -7,16 +7,16 @@ import {
   Globe,
   ExternalLink,
   Loader2,
-  Sparkles,
+  Zap,
   BookOpen,
   Shield,
-  Zap,
   ChevronRight,
   Clock,
   ArrowRight,
   Lightbulb,
   TrendingUp,
   Star,
+  Flame,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -38,10 +38,10 @@ interface ResearchResult {
 }
 
 const SUGGESTIONS = [
-  { icon: TrendingUp, text: 'ما هي أحدث تقنيات الذكاء الاصطناعي في 2026؟', color: 'from-emerald-500 to-teal-600' },
-  { icon: Lightbulb, text: 'How does quantum computing work?', color: 'from-amber-500 to-orange-600' },
+  { icon: TrendingUp, text: 'ما هي أحدث تقنيات الذكاء الاصطناعي في 2026؟', color: 'from-orange-500 to-amber-600' },
+  { icon: Lightbulb, text: 'How does quantum computing work?', color: 'from-rose-500 to-pink-600' },
   { icon: Star, text: 'ما أفضل استثمارات المستقبل؟', color: 'from-violet-500 to-purple-600' },
-  { icon: Globe, text: 'What are the effects of climate change on economy?', color: 'from-sky-500 to-blue-600' },
+  { icon: Globe, text: 'What are the effects of climate change on economy?', color: 'from-sky-500 to-cyan-600' },
 ]
 
 export default function Home() {
@@ -103,21 +103,21 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="relative">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                <Globe className="w-5 h-5 text-white" />
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center shadow-lg shadow-orange-500/20">
+                <Flame className="w-5 h-5 text-white" />
               </div>
-              <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full animate-pulse" />
+              <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-orange-400 rounded-full animate-pulse" />
             </div>
             <div>
               <h1 className="text-lg font-bold tracking-tight">
-                Deep<span className="text-emerald-500">Search</span>
+                Grok<span className="text-orange-500">Search</span>
               </h1>
-              <p className="text-[10px] text-muted-foreground leading-none -mt-0.5">Elite Research Engine</p>
+              <p className="text-[10px] text-muted-foreground leading-none -mt-0.5">by xAI · Research Engine</p>
             </div>
           </div>
           {searchCount > 0 && (
             <Badge variant="secondary" className="text-xs gap-1.5">
-              <Zap className="w-3 h-3 text-emerald-500" />
+              <Flame className="w-3 h-3 text-orange-500" />
               {searchCount} بحث
             </Badge>
           )}
@@ -139,15 +139,15 @@ export default function Home() {
                 transition={{ delay: 0.1 }}
                 className="text-center mb-8"
               >
-                <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-xs font-medium">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  مدعوم بالذكاء الاصطناعي
+                <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full bg-orange-500/10 text-orange-600 dark:text-orange-400 text-xs font-medium">
+                  <Flame className="w-3.5 h-3.5" />
+                  Powered by Grok — xAI
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3">
-                  ابحث في <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-600">الإنترنت كله</span> بعمق
+                  ابحث بـ <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">عقل Grok</span>
                 </h2>
                 <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto">
-                  اسأل أي سؤال — هنبحث في كل المصادر، نعمل Cross-Verification، ونديك التحليل الكامل مع المصادر
+                  اسأل أي سؤال — Grok هيدور في كل المصادر، يعمل Cross-Verification، ويديك التحليل بقلمه الخشن الصادق
                 </p>
               </motion.div>
 
@@ -159,14 +159,14 @@ export default function Home() {
                 className="w-full max-w-2xl"
               >
                 <div className="relative group">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 rounded-2xl blur-lg opacity-0 group-focus-within:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute -inset-1 bg-gradient-to-r from-orange-500/20 to-amber-500/20 rounded-2xl blur-lg opacity-0 group-focus-within:opacity-100 transition-opacity duration-500" />
                   <div className="relative flex items-end bg-card border border-border rounded-2xl shadow-xl shadow-black/5 dark:shadow-black/20 overflow-hidden">
                     <textarea
                       ref={inputRef}
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                       onKeyDown={handleKeyDown}
-                      placeholder="اكتب سؤالك هنا... مثلاً: ما هي أحدث تقنيات الذكاء الاصطناعي؟"
+                      placeholder="اسأل Grok أي حاجة... 🤔"
                       className="flex-1 min-h-[56px] max-h-[120px] resize-none bg-transparent px-5 py-4 text-base outline-none placeholder:text-muted-foreground/60"
                       rows={1}
                     />
@@ -175,7 +175,7 @@ export default function Home() {
                         onClick={() => handleSearch()}
                         disabled={!query.trim() || loading}
                         size="icon"
-                        className="h-10 w-10 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white shadow-lg shadow-emerald-500/25 disabled:opacity-40 disabled:shadow-none transition-all"
+                        className="h-10 w-10 rounded-xl bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white shadow-lg shadow-orange-500/25 disabled:opacity-40 disabled:shadow-none transition-all"
                       >
                         <Search className="w-4 h-4" />
                       </Button>
@@ -192,17 +192,17 @@ export default function Home() {
                 className="flex flex-wrap items-center justify-center gap-3 mt-6 text-xs text-muted-foreground"
               >
                 <span className="flex items-center gap-1.5">
-                  <Globe className="w-3.5 h-3.5 text-emerald-500" />
-                  بحث متعدد المنظورات
+                  <Flame className="w-3.5 h-3.5 text-orange-500" />
+                  شخصية Grok الخشنه
                 </span>
                 <span className="w-1 h-1 rounded-full bg-border" />
                 <span className="flex items-center gap-1.5">
-                  <Shield className="w-3.5 h-3.5 text-emerald-500" />
+                  <Shield className="w-3.5 h-3.5 text-orange-500" />
                   Cross-Verification إجباري
                 </span>
                 <span className="w-1 h-1 rounded-full bg-border" />
                 <span className="flex items-center gap-1.5">
-                  <Zap className="w-3.5 h-3.5 text-emerald-500" />
+                  <Zap className="w-3.5 h-3.5 text-orange-500" />
                   Zero Fluff — حقايق بس
                 </span>
               </motion.div>
@@ -229,7 +229,7 @@ export default function Home() {
                     <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors line-clamp-2">
                       {suggestion.text}
                     </span>
-                    <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-emerald-500 ml-auto shrink-0 transition-colors" />
+                    <ChevronRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-orange-500 ml-auto shrink-0 transition-colors" />
                   </button>
                 ))}
               </motion.div>
@@ -248,32 +248,32 @@ export default function Home() {
             >
               <div className="text-center space-y-6">
                 <div className="relative w-20 h-20 mx-auto">
-                  <div className="absolute inset-0 rounded-full border-2 border-emerald-500/20" />
-                  <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-emerald-500 animate-spin" />
-                  <div className="absolute inset-3 rounded-full border-2 border-transparent border-t-teal-500 animate-spin" style={{ animationDuration: '1.5s', animationDirection: 'reverse' }} />
+                  <div className="absolute inset-0 rounded-full border-2 border-orange-500/20" />
+                  <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-orange-500 animate-spin" />
+                  <div className="absolute inset-3 rounded-full border-2 border-transparent border-t-amber-500 animate-spin" style={{ animationDuration: '1.5s', animationDirection: 'reverse' }} />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <Globe className="w-7 h-7 text-emerald-500 animate-pulse" />
+                    <Flame className="w-7 h-7 text-orange-500 animate-pulse" />
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold mb-1">جاري البحث العميق...</h3>
+                  <h3 className="text-lg font-semibold mb-1">Grok بيدور بعمق...</h3>
                   <p className="text-sm text-muted-foreground flex items-center justify-center gap-2">
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    بندور في كل المصادر ونعمل تحليل شامل
+                    بيفتح كل المصادر وبيعمل Cross-Verification
                   </p>
                 </div>
                 <div className="flex items-center justify-center gap-6 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    بحث الويب
+                    <div className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+                    بحث من منظورات مختلفة
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
-                    تحليل المصادر
+                    <div className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                    Cross-Verification
                   </span>
                   <span className="flex items-center gap-1.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" style={{ animationDelay: '1s' }} />
-                    صياغة الإجابة
+                    <div className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" style={{ animationDelay: '1s' }} />
+                    Grok بيصيغ الإجابة
                   </span>
                 </div>
               </div>
@@ -299,7 +299,7 @@ export default function Home() {
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        placeholder="ابحث عن شيء آخر..."
+                        placeholder="اسأل Groك حاجة تانية..."
                         className="flex-1 min-h-[44px] max-h-[80px] resize-none bg-transparent px-4 py-2.5 text-sm outline-none placeholder:text-muted-foreground/60"
                         rows={1}
                       />
@@ -308,7 +308,7 @@ export default function Home() {
                           onClick={() => handleSearch()}
                           disabled={!query.trim() || loading}
                           size="icon"
-                          className="h-8 w-8 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white disabled:opacity-40 transition-all"
+                          className="h-8 w-8 rounded-lg bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 text-white disabled:opacity-40 transition-all"
                         >
                           <Search className="w-3.5 h-3.5" />
                         </Button>
@@ -323,10 +323,10 @@ export default function Home() {
                     <Card className="border-border/60 shadow-sm">
                       <CardContent className="p-5 sm:p-6">
                         <div className="flex items-center gap-2 mb-4 pb-3 border-b border-border/50">
-                          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
-                            <Sparkles className="w-4 h-4 text-white" />
+                          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center">
+                            <Flame className="w-4 h-4 text-white" />
                           </div>
-                          <h3 className="font-semibold">تحليل DeepSearch AI</h3>
+                          <h3 className="font-semibold">تحليل Grok</h3>
                           <Badge variant="secondary" className="text-[10px] ml-auto">
                             {result.sources.length} مصدر
                           </Badge>
@@ -337,7 +337,7 @@ export default function Home() {
                           prose-p:leading-relaxed prose-p:my-2
                           prose-li:my-0.5
                           prose-strong:text-foreground
-                          prose-a:text-emerald-600 dark:prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline">
+                          prose-a:text-orange-600 dark:prose-a:text-orange-400 prose-a:no-underline hover:prose-a:underline">
                           <ReactMarkdown>{result.answer}</ReactMarkdown>
                         </div>
                       </CardContent>
@@ -349,7 +349,7 @@ export default function Home() {
                     <Card className="border-border/60 shadow-sm sticky top-20">
                       <CardContent className="p-4 sm:p-5">
                         <div className="flex items-center gap-2 mb-4 pb-3 border-b border-border/50">
-                          <BookOpen className="w-4 h-4 text-emerald-500" />
+                          <BookOpen className="w-4 h-4 text-orange-500" />
                           <h3 className="font-semibold text-sm">المصادر</h3>
                         </div>
                         <div className="space-y-2.5 max-h-[60vh] overflow-y-auto pr-1 custom-scrollbar">
@@ -359,14 +359,14 @@ export default function Home() {
                               href={source.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="group block p-3 rounded-lg border border-border/40 hover:border-emerald-500/40 hover:bg-emerald-500/5 transition-all duration-200"
+                              className="group block p-3 rounded-lg border border-border/40 hover:border-orange-500/40 hover:bg-orange-500/5 transition-all duration-200"
                             >
                               <div className="flex items-start gap-2.5">
-                                <span className="w-5 h-5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                                <span className="w-5 h-5 rounded-md bg-orange-500/10 text-orange-600 dark:text-orange-400 text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                                   {source.id}
                                 </span>
                                 <div className="flex-1 min-w-0">
-                                  <h4 className="text-xs font-medium line-clamp-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                                  <h4 className="text-xs font-medium line-clamp-2 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
                                     {source.title}
                                   </h4>
                                   <div className="flex items-center gap-2 mt-1">
@@ -387,7 +387,7 @@ export default function Home() {
                                     {source.snippet}
                                   </p>
                                 </div>
-                                <ExternalLink className="w-3 h-3 text-muted-foreground/30 group-hover:text-emerald-500 shrink-0 mt-1 transition-colors" />
+                                <ExternalLink className="w-3 h-3 text-muted-foreground/30 group-hover:text-orange-500 shrink-0 mt-1 transition-colors" />
                               </div>
                             </a>
                           ))}
@@ -414,7 +414,7 @@ export default function Home() {
                 <div className="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mx-auto">
                   <Shield className="w-7 h-7 text-red-500" />
                 </div>
-                <h3 className="text-lg font-semibold">حدث خطأ</h3>
+                <h3 className="text-lg font-semibold">حاجة غلط حصلت</h3>
                 <p className="text-sm text-muted-foreground">{error}</p>
                 <Button
                   onClick={() => handleSearch()}
@@ -422,7 +422,7 @@ export default function Home() {
                   className="gap-2"
                 >
                   <ArrowRight className="w-4 h-4" />
-                  حاول مرة أخرى
+                  حاول تاني
                 </Button>
               </div>
             </motion.div>
@@ -434,10 +434,10 @@ export default function Home() {
       <footer className="border-t border-border/50 py-4">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between text-xs text-muted-foreground">
           <span className="flex items-center gap-1.5">
-            <Globe className="w-3.5 h-3.5 text-emerald-500" />
-            DeepSearch AI
+            <Flame className="w-3.5 h-3.5 text-orange-500" />
+            GrokSearch by xAI
           </span>
-          <span>Multi-Perspective · Cross-Verified · Zero Fluff</span>
+          <span>Witty · Cross-Verified · Zero Fluff</span>
         </div>
       </footer>
     </div>

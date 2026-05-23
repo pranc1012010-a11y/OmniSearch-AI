@@ -14,24 +14,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DeepSearch AI — محرك البحث الذكي",
-  description: "ابحث في الإنترنت كله واحصل على إجابات شاملة مع تحليل عميق ومصادر موثقة. مدعوم بالذكاء الاصطناعي.",
-  keywords: ["DeepSearch", "AI Search", "بحث ذكي", "تحليل عميق", "مصادر", "ذكاء اصطناعي", "Cross-Verification"],
-  authors: [{ name: "DeepSearch AI" }],
+  title: "GrokSearch — محرك بحث Grok الذكي",
+  description: "ابحث في الإنترنت كله مع Grok — تحليل عميق، شخصية خشنة، ومصادر موثقة. Powered by xAI.",
+  keywords: ["Grok", "xAI", "AI Search", "بحث ذكي", "Grok Search", "ذكاء اصطناعي", "Cross-Verification"],
+  authors: [{ name: "GrokSearch by xAI" }],
   icons: {
     icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
   },
   openGraph: {
-    title: "DeepSearch AI — محرك البحث الذكي",
-    description: "ابحث في الإنترنت كله واحصل على إجابات شاملة مع تحليل عميق ومصادر موثقة.",
+    title: "GrokSearch — محرك بحث Grok الذكي",
+    description: "ابحث في الإنترنت كله مع Grok — تحليل عميق، شخصية خشنة، ومصادر موثقة.",
     url: "https://chat.z.ai",
-    siteName: "DeepSearch AI",
+    siteName: "GrokSearch by xAI",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "DeepSearch AI — محرك البحث الذكي",
-    description: "ابحث في الإنترنت كله واحصل على إجابات شاملة",
+    title: "GrokSearch — محرك بحث Grok الذكي",
+    description: "ابحث في الإنترنت كله مع Grok — تحليل عميق ومصادر موثقة",
   },
 };
 

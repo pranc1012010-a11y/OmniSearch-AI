@@ -39,3 +39,24 @@ Stage Summary:
   - `/home/z/my-project/src/app/page.tsx` — Frontend UI with search, results, sources
   - `/home/z/my-project/src/app/globals.css` — Custom styling with scrollbar and animations
 - API tested and working perfectly with comprehensive results
+
+---
+Task ID: fix-preview
+Agent: Main Agent
+Task: Fix Aikimi website preview link and ensure server stability
+
+Work Log:
+- Diagnosed that Next.js server keeps dying when run directly (standalone mode)
+- Switched to dev.sh script which keeps the server running properly
+- Confirmed Caddy proxy on port 81 works correctly
+- Fixed error handling in page.tsx (added 3-minute timeout, better error messages)
+- Optimized API route (reduced from 15 to 12 sources, better retry logic)
+- Tested API - returns comprehensive answers with sources (takes 30-50 seconds)
+- Pushed all fixes to GitHub
+- Preview URL format investigation: the URL https://preview-web-72271385-8496-4a8f-8e84-e312ca6fc20b.space.chatglm.site/ returns 404 via web reader but server is confirmed working on port 81
+
+Stage Summary:
+- Server running on port 3000, Caddy proxy on port 81
+- API fully functional - returns search results with AI analysis
+- Preview link may require Complete tool to properly register
+- Code pushed to GitHub: github.com/pranc1012010-a11y/OmniSearch-AI

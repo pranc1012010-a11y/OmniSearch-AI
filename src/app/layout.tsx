@@ -14,24 +14,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GrokSearch — محرك بحث Grok الذكي",
-  description: "ابحث في الإنترنت كله مع Grok — تحليل عميق، شخصية خشنة، ومصادر موثقة. Powered by xAI.",
-  keywords: ["Grok", "xAI", "AI Search", "بحث ذكي", "Grok Search", "ذكاء اصطناعي", "Cross-Verification"],
-  authors: [{ name: "GrokSearch by xAI" }],
+  title: "Aikimi — محرك البحث الذكي المجاني",
+  description: "ابحث في الإنترنت كله مع Aikimi — تحليل عميق، مصادر موثقة، مجاني للأبد بدون حدود.",
+  keywords: ["Aikimi", "AI Search", "بحث ذكي مجاني", "Aikimi AI", "ذكاء اصطناعي", "Cross-Verification", "free AI"],
+  authors: [{ name: "Aikimi" }],
   icons: {
     icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
   },
   openGraph: {
-    title: "GrokSearch — محرك بحث Grok الذكي",
-    description: "ابحث في الإنترنت كله مع Grok — تحليل عميق، شخصية خشنة، ومصادر موثقة.",
+    title: "Aikimi — محرك البحث الذكي المجاني",
+    description: "ابحث في الإنترنت كله مع Aikimi — تحليل عميق ومصادر موثقة، مجاني للأبد.",
     url: "https://chat.z.ai",
-    siteName: "GrokSearch by xAI",
+    siteName: "Aikimi",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "GrokSearch — محرك بحث Grok الذكي",
-    description: "ابحث في الإنترنت كله مع Grok — تحليل عميق ومصادر موثقة",
+    title: "Aikimi — محرك البحث الذكي المجاني",
+    description: "ابحث في الإنترنت كله مع Aikimi — مجاني للأبد بدون حدود",
   },
 };
 

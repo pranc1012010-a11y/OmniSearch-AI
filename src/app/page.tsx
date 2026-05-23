@@ -110,9 +110,9 @@ export default function Home() {
             </div>
             <div>
               <h1 className="text-lg font-bold tracking-tight">
-                Omni<span className="text-emerald-500">Search</span>
+                Deep<span className="text-emerald-500">Search</span>
               </h1>
-              <p className="text-[10px] text-muted-foreground leading-none -mt-0.5">AI Research Engine</p>
+              <p className="text-[10px] text-muted-foreground leading-none -mt-0.5">Elite Research Engine</p>
             </div>
           </div>
           {searchCount > 0 && (
@@ -144,10 +144,10 @@ export default function Home() {
                   مدعوم بالذكاء الاصطناعي
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-3">
-                  ابحث في <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-600">الإنترنت كله</span>
+                  ابحث في <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-600">الإنترنت كله</span> بعمق
                 </h2>
                 <p className="text-muted-foreground text-base sm:text-lg max-w-xl mx-auto">
-                  اسأل أي سؤال — هنبحث في كل المصادر، نلخصلك المعلومات، ونديك الإجابة مع المصادر
+                  اسأل أي سؤال — هنبحث في كل المصادر، نعمل Cross-Verification، ونديك التحليل الكامل مع المصادر
                 </p>
               </motion.div>
 
@@ -193,17 +193,17 @@ export default function Home() {
               >
                 <span className="flex items-center gap-1.5">
                   <Globe className="w-3.5 h-3.5 text-emerald-500" />
-                  بحث متعدد المصادر
+                  بحث متعدد المنظورات
                 </span>
                 <span className="w-1 h-1 rounded-full bg-border" />
                 <span className="flex items-center gap-1.5">
                   <Shield className="w-3.5 h-3.5 text-emerald-500" />
-                  توثيق كل معلومة
+                  Cross-Verification إجباري
                 </span>
                 <span className="w-1 h-1 rounded-full bg-border" />
                 <span className="flex items-center gap-1.5">
                   <Zap className="w-3.5 h-3.5 text-emerald-500" />
-                  تحليل ذكي عميق
+                  Zero Fluff — حقايق بس
                 </span>
               </motion.div>
 
@@ -326,7 +326,7 @@ export default function Home() {
                           <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
                             <Sparkles className="w-4 h-4 text-white" />
                           </div>
-                          <h3 className="font-semibold">تحليل OmniSearch</h3>
+                          <h3 className="font-semibold">تحليل DeepSearch AI</h3>
                           <Badge variant="secondary" className="text-[10px] ml-auto">
                             {result.sources.length} مصدر
                           </Badge>
@@ -435,9 +435,9 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between text-xs text-muted-foreground">
           <span className="flex items-center gap-1.5">
             <Globe className="w-3.5 h-3.5 text-emerald-500" />
-            OmniSearch AI
+            DeepSearch AI
           </span>
-          <span>تحليل ذكي · مصادر موثقة · بحث شامل</span>
+          <span>Multi-Perspective · Cross-Verified · Zero Fluff</span>
         </div>
       </footer>
     </div>

@@ -14,23 +14,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OmniSearch AI — محرك البحث الذكي",
-  description: "ابحث في الإنترنت كله واحصل على إجابات شاملة مع تحليل ذكي ومصادر موثقة. مدعوم بالذكاء الاصطناعي.",
-  keywords: ["OmniSearch", "AI Search", "بحث ذكي", "تحليل", "مصادر", "ذكاء اصطناعي"],
-  authors: [{ name: "OmniSearch AI" }],
+  title: "DeepSearch AI — محرك البحث الذكي",
+  description: "ابحث في الإنترنت كله واحصل على إجابات شاملة مع تحليل عميق ومصادر موثقة. مدعوم بالذكاء الاصطناعي.",
+  keywords: ["DeepSearch", "AI Search", "بحث ذكي", "تحليل عميق", "مصادر", "ذكاء اصطناعي", "Cross-Verification"],
+  authors: [{ name: "DeepSearch AI" }],
   icons: {
     icon: "https://z-cdn.chatglm.cn/z-ai/static/logo.svg",
   },
   openGraph: {
-    title: "OmniSearch AI — محرك البحث الذكي",
-    description: "ابحث في الإنترنت كله واحصل على إجابات شاملة مع تحليل ذكي ومصادر موثقة.",
+    title: "DeepSearch AI — محرك البحث الذكي",
+    description: "ابحث في الإنترنت كله واحصل على إجابات شاملة مع تحليل عميق ومصادر موثقة.",
     url: "https://chat.z.ai",
-    siteName: "OmniSearch AI",
+    siteName: "DeepSearch AI",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "OmniSearch AI — محرك البحث الذكي",
+    title: "DeepSearch AI — محرك البحث الذكي",
     description: "ابحث في الإنترنت كله واحصل على إجابات شاملة",
   },
 };

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import ZAI from 'z-ai-web-dev-sdk'
 
+export const maxDuration = 180 // 3 minutes timeout for Vercel/serverless
+
 const SYSTEM_PROMPT = `You are "Aikimi" — a free, unlimited, and fiercely intelligent AI research engine. You are built to break barriers: no paywalls, no limits, no compromises on quality. You make world-class research accessible to everyone, forever.
 
 ## YOUR PERSONALITY
@@ -48,17 +50,17 @@ const SYSTEM_PROMPT = `You are "Aikimi" — a free, unlimited, and fiercely inte
 
 ## RESPONSE FORMAT
 
-### ⚡ The Bottom Line
+### The Bottom Line
 2-3 powerful sentences that answer the core question directly. Sharp, memorable, no fluff.
 
 ---
 
-### 🔍 The Full Story
+### The Full Story
 [Your comprehensive, deeply analytical response. Use ### headers for sub-sections. Cross-reference rigorously. Present multiple perspectives. Include data, statistics, examples, and tables. Be thorough and engaging — this is the heart of your answer.]
 
 ---
 
-### 📊 Key Takeaways
+### Key Takeaways
 - **Takeaway 1**: [Specific, quantified, with source] [1]
 - **Takeaway 2**: [Specific, quantified, with source] [2]
 - **Takeaway 3**: [Specific, quantified, with source] [1][3]
@@ -67,21 +69,21 @@ const SYSTEM_PROMPT = `You are "Aikimi" — a free, unlimited, and fiercely inte
 
 ---
 
-### 🎯 Confidence Level
+### Confidence Level
 - **Rock Solid**: [Claims backed by 3+ independent sources]
 - **Looks Right**: [Claims with 1-2 sources — solid but verify]
 - **Debated**: [Sources disagree — here's both sides and my take]
 
 ---
 
-### 🚀 Dig Deeper
+### Dig Deeper
 - [Specific, interesting research direction]
 - [Another fascinating angle to explore]
 - [A contrarian perspective worth investigating]
 
 ---
 
-### 📚 Source Map
+### Source Map
 [Each source with number, title, domain, and what it contributed]
 [1] Title — domain.com — Backs: [specific claims]
 [2] Title — domain.com — Backs: [specific claims]
@@ -109,41 +111,39 @@ export async function POST(request: NextRequest) {
 
     const zai = await ZAI.create()
 
-    // Step 1: Search with retry logic to handle rate limits
-    const searchWithRetry = async (q: string, retries = 3): Promise<any[]> => {
+    // Search with retry logic
+    const searchWithRetry = async (q: string, retries = 2): Promise<any[]> => {
       for (let attempt = 1; attempt <= retries; attempt++) {
         try {
-          const results = await zai.functions.invoke('web_search', { query: q, num: 10 })
+          const results = await zai.functions.invoke('web_search', { query: q, num: 8 })
           return Array.isArray(results) ? results : []
         } catch (err: any) {
           const isRateLimit = err?.message?.includes('429') || err?.message?.includes('Too many')
           if (isRateLimit && attempt < retries) {
-            // Wait before retrying (exponential backoff)
             await new Promise(resolve => setTimeout(resolve, 2000 * attempt))
             continue
           }
-          // If not rate limit or max retries, return empty
           return []
         }
       }
       return []
     }
 
-    // Sequential searches with delay to avoid rate limiting
+    // Run searches - main query + one supplementary
     const allResults: any[] = []
 
-    // First search: main query (most important)
+    // First search: main query
     const mainResults = await searchWithRetry(query)
     allResults.push(...mainResults)
 
-    // Second search: latest news (with delay)
+    // Second search: latest info (with small delay to avoid rate limit)
     if (mainResults.length > 0) {
-      await new Promise(resolve => setTimeout(resolve, 1500))
-      const newsResults = await searchWithRetry(`${query} latest 2025 2026`)
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      const newsResults = await searchWithRetry(`${query} 2025 2026`)
       allResults.push(...newsResults)
     }
 
-    // Deduplicate results
+    // Deduplicate results by URL
     const seenUrls = new Set<string>()
     const uniqueResults = allResults.filter((result: { url: string }) => {
       if (seenUrls.has(result.url)) return false
@@ -151,11 +151,9 @@ export async function POST(request: NextRequest) {
       return true
     })
 
-    // Sort by rank
+    // Sort by rank and take top 12
     uniqueResults.sort((a: { rank: number }, b: { rank: number }) => a.rank - b.rank)
-
-    // Take top results
-    const topResults = uniqueResults.slice(0, 15)
+    const topResults = uniqueResults.slice(0, 12)
 
     if (topResults.length === 0) {
       return NextResponse.json({
@@ -164,14 +162,14 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Step 2: Prepare context from search results
+    // Prepare context from search results
     const searchContext = topResults
       .map((result: { url: string; name: string; snippet: string; host_name: string; date: string }, index: number) =>
         `[Source ${index + 1}] Title: "${result.name}" | From: ${result.host_name} | Date: ${result.date || 'N/A'} | URL: ${result.url}\nSnippet: ${result.snippet}`
       )
       .join('\n\n')
 
-    // Step 3: Generate comprehensive answer using AI
+    // Generate comprehensive answer using AI
     const completion = await zai.chat.completions.create({
       messages: [
         {
@@ -201,7 +199,7 @@ Remember:
 
     const answer = completion.choices[0]?.message?.content || 'عذراً، لم أتمكن من تحليل النتائج. حاول مرة أخرى.'
 
-    // Step 4: Format sources for frontend
+    // Format sources for frontend
     const sources = topResults.map((result: { url: string; name: string; snippet: string; host_name: string; date: string }, index: number) => ({
       id: index + 1,
       title: result.name,
@@ -215,14 +213,16 @@ Remember:
   } catch (error: any) {
     console.error('Research API error:', error)
     
-    // Check if it's a rate limit error
     const isRateLimit = error?.message?.includes('429') || error?.message?.includes('Too many')
     if (isRateLimit) {
       return NextResponse.json(
-        { error: 'تم تجاوز حد الطلبات. استنى دقيقة وجرب تاني — Aikimi مجاني بس لازم نحترم السيرفر! 💜' },
+        { error: 'تم تجاوز حد الطلبات. استنى دقيقة وجرب تاني — Aikimi مجاني بس لازم نحترم السيرفر!' },
         { status: 429 }
       )
     }
+    
+    const errorMessage = error?.message || 'Unknown error'
+    console.error('Error details:', errorMessage)
     
     return NextResponse.json(
       { error: 'حدث خطأ أثناء البحث. حاول مرة أخرى.' },

@@ -69,22 +69,37 @@ export default function Home() {
     setResult(null)
 
     try {
+      const controller = new AbortController()
+      // 3 minute timeout - research takes time!
+      const timeoutId = setTimeout(() => controller.abort(), 180000)
+
       const response = await fetch('/api/research', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query: q }),
+        signal: controller.signal,
       })
 
-      const data = await response.json()
+      clearTimeout(timeoutId)
 
       if (!response.ok) {
-        throw new Error(data.error || 'حدث خطأ أثناء البحث')
+        let errorMsg = 'حدث خطأ أثناء البحث'
+        try {
+          const errorData = await response.json()
+          errorMsg = errorData.error || errorMsg
+        } catch {}
+        throw new Error(errorMsg)
       }
 
+      const data = await response.json()
       setResult(data)
       setSearchCount(prev => prev + 1)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'حدث خطأ غير متوقع')
+      if (err instanceof Error && err.name === 'AbortError') {
+        setError('الطلب استغرق وقت طويل. جرب تاني — Aikimi بيدور بعمق!')
+      } else {
+        setError(err instanceof Error ? err.message : 'حدث خطأ غير متوقع')
+      }
     } finally {
       setLoading(false)
     }

@@ -109,23 +109,43 @@ export async function POST(request: NextRequest) {
 
     const zai = await ZAI.create()
 
-    // Step 1: Search the web for multiple queries to get comprehensive results
-    const searchQueries = [
-      query,
-      `${query} latest news 2025 2026`,
-      `${query} analysis overview`,
-    ]
+    // Step 1: Search with retry logic to handle rate limits
+    const searchWithRetry = async (q: string, retries = 3): Promise<any[]> => {
+      for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+          const results = await zai.functions.invoke('web_search', { query: q, num: 10 })
+          return Array.isArray(results) ? results : []
+        } catch (err: any) {
+          const isRateLimit = err?.message?.includes('429') || err?.message?.includes('Too many')
+          if (isRateLimit && attempt < retries) {
+            // Wait before retrying (exponential backoff)
+            await new Promise(resolve => setTimeout(resolve, 2000 * attempt))
+            continue
+          }
+          // If not rate limit or max retries, return empty
+          return []
+        }
+      }
+      return []
+    }
 
-    const searchPromises = searchQueries.map(q =>
-      zai.functions.invoke('web_search', { query: q, num: 10 }).catch(() => [])
-    )
+    // Sequential searches with delay to avoid rate limiting
+    const allResults: any[] = []
 
-    const searchResults = await Promise.all(searchPromises)
+    // First search: main query (most important)
+    const mainResults = await searchWithRetry(query)
+    allResults.push(...mainResults)
 
-    // Merge and deduplicate results
-    const allResults = searchResults.flat()
+    // Second search: latest news (with delay)
+    if (mainResults.length > 0) {
+      await new Promise(resolve => setTimeout(resolve, 1500))
+      const newsResults = await searchWithRetry(`${query} latest 2025 2026`)
+      allResults.push(...newsResults)
+    }
+
+    // Deduplicate results
     const seenUrls = new Set<string>()
-    const uniqueResults = allResults.filter((result: { url: string; name: string; snippet: string; host_name: string; rank: number; date: string }) => {
+    const uniqueResults = allResults.filter((result: { url: string }) => {
       if (seenUrls.has(result.url)) return false
       seenUrls.add(result.url)
       return true
@@ -192,8 +212,18 @@ Remember:
     }))
 
     return NextResponse.json({ answer, sources })
-  } catch (error) {
+  } catch (error: any) {
     console.error('Research API error:', error)
+    
+    // Check if it's a rate limit error
+    const isRateLimit = error?.message?.includes('429') || error?.message?.includes('Too many')
+    if (isRateLimit) {
+      return NextResponse.json(
+        { error: 'تم تجاوز حد الطلبات. استنى دقيقة وجرب تاني — Aikimi مجاني بس لازم نحترم السيرفر! 💜' },
+        { status: 429 }
+      )
+    }
+    
     return NextResponse.json(
       { error: 'حدث خطأ أثناء البحث. حاول مرة أخرى.' },
       { status: 500 }
